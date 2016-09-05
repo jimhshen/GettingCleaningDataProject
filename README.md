@@ -3,8 +3,8 @@
 The R script ('run_analysis.R') does the following:
 
 1. Loads required packages
-2. Gets the data file
-3. Loads the training, test, and features data
+2. Gets the data file, creating a folder in the current working directory
+3. Loads the training, test, and features data from the data folder
 4. Merges the data into one dataset
 5. Subsets the data to only the variables that measure mean and standard deviation
 6. Uses the activity labels file to replace the activity names
