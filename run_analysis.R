@@ -14,9 +14,8 @@ download.file(fileurl, file.path(path, file))
 #Extract the file
 unzip(zipfile="./Dataset.zip",exdir="./data")
 
-#Get the list of files
+#Set File Location
 fileLocation <- file.path("./data", "UCI HAR Dataset")
-list.files(fileLocation, recursive=TRUE)
 
 #Get data
 dataSubjectTrain <- fread(file.path(fileLocation, "train", "subject_train.txt"))
@@ -25,7 +24,7 @@ dataSubjectTest  <- fread(file.path(fileLocation, "test" , "subject_test.txt" ))
 dataActivityTrain <- fread(file.path(fileLocation, "train", "Y_train.txt"))
 dataActivityTest  <- fread(file.path(fileLocation, "test" , "Y_test.txt" ))
 
-tableTrain <- read.table(file.path(fileLocation, "train", "X_train.txt"))
+tableTrain <- read.table(file.patdatah(fileLocation, "train", "X_train.txt"))
 tableTest <- read.table(file.path(fileLocation, "test" , "X_test.txt" ))
 dataFeaturesTrain <-data.table(tableTrain)
 dataFeaturesTest <-data.table(tableTest)
@@ -38,7 +37,7 @@ setnames(dataSubject, "V1", "subject")
 dataActivity <- rbind(dataActivityTrain, dataActivityTest)
 setnames(dataActivity, "V1", "activity")
 
-dataFeatures <- rbind(dataFeaturesTrain, dataFeaturesTest)
+dataFeat<- rbind(dataFeaturesTrain, dataFeaturesTest)
 featuresNames <- fread(file.path(fileLocation, "features.txt"))
 names(dataFeatures) <- featuresNames$V2
 
@@ -79,7 +78,3 @@ data<-data.frame(data)
 dataTidy<-aggregate(data[,3:68], by = list(subject = data$subject, activity = data$activity),FUN = mean)
 
 write.table(dataTidy, file = "dataTidy.txt",row.name=FALSE)
-
-#Create Codebook
-knit("codebook.Rmd", output="codebook.md")
-markdownToHTML("codebook.md", "codebook.html")
